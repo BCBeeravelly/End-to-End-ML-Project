@@ -59,23 +59,72 @@ class TestMakeDataset(unittest.TestCase):
         
         # Check if the 'info_source' column contains only the values 'Agent', 'Friends' and 'Others'
         self.assertTrue(set(transformed_data['info_source'].unique()) == {'Agent', 'Friends', 'Others'})
+        
+    def test_make_night_mainland(self):
+        transformed_data = self.dataset.make_night_mainland()
+        
+        # Check if the 'night_mainland' column contains any null values
+        self.assertFalse(transformed_data['night_mainland'].isnull().any())
+        
+        # Check if the 'night_mainland' column contains only 3 unique values
+        self.assertEqual(transformed_data['night_mainland'].nunique(), 3)
+        
+        # Check if the 'night_mainland' column contains only the values '0-5', '10-15' and '7+'
+        self.assertTrue(set(transformed_data['night_mainland'].unique()) == {'0-5', '10-15', '7+'})
     
-    def test_make_package(self):
+    def test_make_night_zanzibar(self):
+        transformed_data = self.dataset.make_night_zanzibar()
         
-        # Check if the 'package' column contains any null values
-        self.assertFalse(self.dataset.tour_arrangement.isnull().any())
+        # Check if the 'night_zanzibar' column contains any null values
+        self.assertFalse(transformed_data['night_zanzibar'].isnull().any())
         
-        # Check if the 'package' column contains only 2 unique values
-        self.assertEqual(self.dataset.tour_arrangement.nunique(), 2)
+        # Check if the 'night_zanzibar' column contains only 2 unique values
+        self.assertEqual(transformed_data['night_zanzibar'].nunique(), 2)
         
-        # Check if the 'package' column contains only the values 'Independent' and 'Package Tour'
-        self.assertTrue(set(self.dataset.tour_arrangement.unique()) == {'Independent', 'Package Tour'})
+        # Check if the 'night_zanzibar' column contains only the values '0-5', '10-15' and '7+'
+        self.assertTrue(set(transformed_data['night_zanzibar'].unique()) == {0, 1})
         
+    def test_make_payment(self):
+        transformed_data = self.dataset.make_payment()
+        
+        # Check if the 'payment_mode' column contains any null values
+        self.assertFalse(transformed_data['payment_mode'].isnull().any())
+        
+        # Check if the 'payment_mode' column contains only 3 unique values
+        self.assertEqual(transformed_data['payment_mode'].nunique(), 2)
+        
+        # Check if the 'payment_mode' column contains only the values 'Cash', 'Credit Card'
+        self.assertTrue(set(transformed_data['payment_mode'].unique()) == {'Cash', 'Credit Card'})
     
+    def test_make_dataset(self):
+        transformed_data = self.dataset.make_dataset()
+        self.assertFalse(transformed_data['tour_arrangement'].isnull().any()) #Check if there are any null values in the 'tour_arrangement' column
         
-       
+        # Check if the 'package_transport' column contains any null values
+        self.assertFalse(transformed_data['package_transport_int'].isnull().any())
         
+        # Check if the 'package_accomodation' column contains any null values
+        self.assertFalse(transformed_data['package_accomodation'].isnull().any())
         
+        # Check if the 'package_food' column contains any null values
+        self.assertFalse(transformed_data['package_food'].isnull().any())
+        
+        # Check if the 'package_transport_tz' column contains any null values
+        self.assertFalse(transformed_data['package_transport_tz'].isnull().any())
+        
+        # Check if the 'package_sightseeing' column contains any null values
+        self.assertFalse(transformed_data['package_sightseeing'].isnull().any())
+        
+        # Check if the 'package_guided_tour' column contains any null values
+        self.assertFalse(transformed_data['package_guided_tour'].isnull().any())
+        
+        # Check if the 'package_insurance' column contains any null values
+        self.assertFalse(transformed_data['package_insurance'].isnull().any())
+        
+        # Check if the 'first_trip_tz' column contains any null values
+        self.assertFalse(transformed_data['first_trip_tz'].isnull().any())
+        
+            
         
         
 
